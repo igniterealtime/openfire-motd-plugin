@@ -4,13 +4,34 @@
     <parent>
         <artifactId>plugins</artifactId>
         <groupId>org.igniterealtime.openfire</groupId>
-        <version>4.3.0-beta</version>
+        <version>4.3.0</version>
     </parent>
     <groupId>org.igniterealtime.openfire.plugins</groupId>
     <artifactId>motd</artifactId>
     <version>1.2.2-SNAPSHOT</version>
     <name>Message of the Day Plugin</name>
     <description>Allows admins to have a message sent to users each time they log in.</description>
+
+    <repositories>
+        <!-- Where dependencies are obtained (such as the parent project). -->
+        <repository>
+            <id>igniterealtime</id>
+            <name>Ignite Realtime Repository</name>
+            <url>https://igniterealtime.org/archiva/repository/maven/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <!-- Typically used to retrieve Maven plugins that are used by this project.
+             This apparently is also used to botain the dependencies _used by_ these
+             plugins (such as the openfire-plugin-assembly-descriptor, needed to
+             package the project as an Openfire plugin!) -->
+        <pluginRepository>
+            <id>igniterealtime</id>
+            <name>Ignite Realtime Repository</name>
+            <url>https://igniterealtime.org/archiva/repository/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <developers>
         <developer>
@@ -23,6 +44,19 @@
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-jspc-maven-plugin</artifactId>
+                <!-- Use the old version for Openfire 4.2 compatibility -->
+                <version>9.2.14.v20151106</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.igniterealtime.openfire</groupId>
+                        <artifactId>xmppserver</artifactId>
+                        <version>${openfire.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
