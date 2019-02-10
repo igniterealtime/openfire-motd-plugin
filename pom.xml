@@ -45,6 +45,19 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-jspc-maven-plugin</artifactId>
+                <!-- Use the old version for Openfire 4.2 compatibility -->
+                <version>9.2.14.v20151106</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.igniterealtime.openfire</groupId>
+                        <artifactId>xmppserver</artifactId>
+                        <version>${openfire.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
