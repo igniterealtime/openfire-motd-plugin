@@ -6,8 +6,8 @@
    <description>Allows admins to have a message sent to users each time they log in.</description>
    <author>Ryan Graham</author>
    <version>${project.version}</version>
-   <date>2022-11-21</date>
-   <minServerVersion>4.0.0</minServerVersion>
+   <date>2024-11-14</date>
+   <minServerVersion>4.8.0</minServerVersion>
    <minJavaVersion>1.8</minJavaVersion>
 
    <adminconsole>

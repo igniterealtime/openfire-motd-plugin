@@ -1,6 +1,7 @@
 package org.jivesoftware.openfire.plugin;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.TimerTask;
 
 import org.jivesoftware.util.JiveGlobals;
@@ -85,7 +86,7 @@ public class MotDPlugin implements Plugin {
                }
             };
 
-            TaskEngine.getInstance().schedule(messageTask, 5000);
+            TaskEngine.getInstance().schedule(messageTask, Duration.ofSeconds(5));
          }
       }
 
