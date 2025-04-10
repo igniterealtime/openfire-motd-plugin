@@ -1,9 +1,28 @@
+/*
+ * Copyright (C) 2007-2017 Jive Software, 2017-2025 Ignite Realtime Foundation. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.jivesoftware.openfire.plugin;
 
 import java.io.File;
 import java.time.Duration;
 import java.util.TimerTask;
 
+import org.jivesoftware.openfire.plugin.commands.DeleteMotD;
+import org.jivesoftware.openfire.plugin.commands.EditMotD;
+import org.jivesoftware.openfire.plugin.commands.SetMotD;
 import org.jivesoftware.util.JiveGlobals;
 import org.jivesoftware.util.TaskEngine;
 import org.jivesoftware.openfire.MessageRouter;
@@ -31,15 +50,26 @@ public class MotDPlugin implements Plugin {
 
    private MotDSessionEventListener listener = new MotDSessionEventListener();
 
+   private final SetMotD setMotD = new SetMotD();
+   private final EditMotD editMotD = new EditMotD();
+   private final DeleteMotD deleteMotD = new DeleteMotD();
+
    public void initializePlugin(PluginManager manager, File pluginDirectory) {
       serverAddress = new JID(XMPPServer.getInstance().getServerInfo().getXMPPDomain());
       router = XMPPServer.getInstance().getMessageRouter();
+
+      XMPPServer.getInstance().getAdHocCommandHandler().addCommand(setMotD);
+      XMPPServer.getInstance().getAdHocCommandHandler().addCommand(editMotD);
+      XMPPServer.getInstance().getAdHocCommandHandler().addCommand(deleteMotD);
 
       SessionEventDispatcher.addListener(listener);
    }
 
    public void destroyPlugin() {
       SessionEventDispatcher.removeListener(listener);
+      XMPPServer.getInstance().getAdHocCommandHandler().removeCommand(setMotD);
+      XMPPServer.getInstance().getAdHocCommandHandler().removeCommand(editMotD);
+      XMPPServer.getInstance().getAdHocCommandHandler().removeCommand(deleteMotD);
 
       listener = null;
       serverAddress = null;
