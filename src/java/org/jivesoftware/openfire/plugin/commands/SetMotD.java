@@ -87,7 +87,7 @@ public class SetMotD extends AdHocCommand
         }
 
         // No errors.
-        plugin.setMessage(String.join(System.lineSeparator(), motd));
+        plugin.setMessage(String.join("\r\n", motd));
         plugin.setEnabled(true);
 
         // Answer that the operation was successful

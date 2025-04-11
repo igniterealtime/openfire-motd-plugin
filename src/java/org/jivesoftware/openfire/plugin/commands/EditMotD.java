@@ -87,7 +87,7 @@ public class EditMotD extends AdHocCommand
         }
 
         // No errors.
-        plugin.setMessage(String.join(System.lineSeparator(), motd));
+        plugin.setMessage(String.join("\r\n", motd));
 
         // Answer that the operation was successful
         note.addAttribute("type", "info");
@@ -114,7 +114,7 @@ public class EditMotD extends AdHocCommand
         field.setVariable("motd");
 
         if (plugin.isEnabled() && plugin.getMessage() != null) {
-            for (final String part : plugin.getMessage().split(System.lineSeparator())) {
+            for (final String part : plugin.getMessage().split("\r\n")) {
                 field.addValue(part);
             }
         }
