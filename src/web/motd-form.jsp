@@ -22,7 +22,7 @@ errorPage="error.jsp"%>
     final Cookie csrfCookie = CookieUtils.getCookie( request, "csrf" );
     final String csrfParam = ParamUtils.getParameter( request, "csrf" );
 
-    final MotDPlugin plugin = (MotDPlugin) XMPPServer.getInstance().getPluginManager().getPlugin( "motd" );
+    final MotDPlugin plugin = (MotDPlugin) XMPPServer.getInstance().getPluginManager().getPluginByName( "MotD (Message of the Day)" ).orElseThrow();
 
     final Map<String, String> errors = new HashMap<>();
     if ( save )
@@ -32,12 +32,12 @@ errorPage="error.jsp"%>
             errors.put( "csrf", "CSRF Failure!" );
         }
 
-        if ( motdSubject == null || motdSubject.trim().length() < 1 )
+        if ( motdSubject == null || motdSubject.trim().isEmpty())
         {
             errors.put( "missingMotdSubject", "missingMotdSubject" );
         }
 
-        if ( motdMessage == null || motdMessage.trim().length() < 1 )
+        if ( motdMessage == null || motdMessage.trim().isEmpty())
         {
             errors.put( "missingMotdMessage", "missingMotdMessage" );
         }
